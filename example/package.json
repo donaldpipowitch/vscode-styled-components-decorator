@@ -1,0 +1,12 @@
+{
+  "name": "styled-components-decorator-example",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@types/styled-components": "^5.0.0",
+    "styled-components": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.23"
+  }
+}
