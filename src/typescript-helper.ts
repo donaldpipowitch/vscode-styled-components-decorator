@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as ts from 'typescript';
-import * as path from 'path';
+import { join, resolve } from 'path';
 
 type ReactComponent = {
   node: ts.JsxOpeningElement | ts.JsxSelfClosingElement;
@@ -16,10 +16,13 @@ export async function getComponentsCreatedByStyledComponents(
   const filePaths = await vscode.workspace
     .findFiles('**/*.{tsx,ts}', '**/node_modules/**')
     .then((files) => files.map((file) => file.fsPath));
+
+  const options = getTsConfigOptions();
+
   const compilerHost = createCompilerHost();
   const program = ts.createProgram({
     rootNames: filePaths,
-    options: {},
+    options: options ?? {},
     host: compilerHost,
   });
 
@@ -80,6 +83,23 @@ export async function getComponentsCreatedByStyledComponents(
   });
 }
 
+function getTsConfigOptions() {
+  const rootPath = vscode.workspace.workspaceFolders
+    ? vscode.workspace.workspaceFolders[0].uri.fsPath || ''
+    : '';
+
+  const tsconfigPath = ts.findConfigFile(
+    rootPath,
+    ts.sys.fileExists,
+    'tsconfig.json',
+  );
+  if (!tsconfigPath) return;
+
+  const { config } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+  const parsedConfig = ts.parseJsonConfigFileContent(config, ts.sys, rootPath);
+  return parsedConfig.options;
+}
+
 // this custom compiler host will return unsaved changes from the editor
 function createCompilerHost() {
   const compilerHost = ts.createCompilerHost({});
@@ -135,8 +155,13 @@ function resolveModuleSpecifierToFilePath(
   containingFilePath: string,
 ): string | undefined {
   const compilerOptions = program.getCompilerOptions();
+
+  const importPath =
+    !moduleSpecifierText.startsWith('.') && compilerOptions.baseUrl
+      ? join(compilerOptions.baseUrl, moduleSpecifierText)
+      : moduleSpecifierText;
   const resolvedModule = ts.resolveModuleName(
-    moduleSpecifierText,
+    importPath,
     containingFilePath,
     compilerOptions,
     ts.sys,
@@ -147,6 +172,7 @@ function resolveModuleSpecifierToFilePath(
       // Don't try to read .d.ts files
       return undefined;
     }
+    console.log('resolvedFileName', resolvedFileName);
     return resolvedFileName;
   }
   return undefined;

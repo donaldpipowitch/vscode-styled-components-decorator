@@ -1,3 +1,7 @@
+# 0.2.0 (2023-09-28)
+
+- Support absolute imports.
+
 # 0.1.1 (2023-09-28)
 
 - Exclude files.
