@@ -6,7 +6,7 @@ This is more a learning exercise then a real polished VS Code extension, but fee
 
 This extension will add a small pink `S.` in front of components that were ceated by styled-components.
 
-![a screenshot of the extension showing the decorator](screenshot.jpg)
+<img src="./screenshot.jpg" alt="a screenshot of the extension showing the decorator" width="300" />
 
 ## How to install?
 
