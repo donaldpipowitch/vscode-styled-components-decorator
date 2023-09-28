@@ -17,13 +17,14 @@ export async function getComponentsCreatedByStyledComponents(
     .findFiles('**/*.{tsx,ts}', '**/node_modules/**')
     .then((files) => files.map((file) => file.fsPath));
 
-  const options = getTsConfigOptions();
+  const config = getTsConfig();
 
-  const compilerHost = createCompilerHost();
+  const compilerHost = createCompilerHost(config?.options);
   const program = ts.createProgram({
-    rootNames: filePaths,
-    options: options ?? {},
+    rootNames: config?.fileNames ?? filePaths,
+    options: config?.options ?? {},
     host: compilerHost,
+    projectReferences: config?.projectReferences,
   });
 
   const sourceFile = program.getSourceFile(document.uri.fsPath);
@@ -83,7 +84,7 @@ export async function getComponentsCreatedByStyledComponents(
   });
 }
 
-function getTsConfigOptions() {
+function getTsConfig() {
   const rootPath = vscode.workspace.workspaceFolders
     ? vscode.workspace.workspaceFolders[0].uri.fsPath || ''
     : '';
@@ -97,12 +98,12 @@ function getTsConfigOptions() {
 
   const { config } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
   const parsedConfig = ts.parseJsonConfigFileContent(config, ts.sys, rootPath);
-  return parsedConfig.options;
+  return parsedConfig;
 }
 
 // this custom compiler host will return unsaved changes from the editor
-function createCompilerHost() {
-  const compilerHost = ts.createCompilerHost({});
+function createCompilerHost(options: ts.CompilerOptions | undefined) {
+  const compilerHost = ts.createCompilerHost(options ?? {});
   const originalGetSourceFile = compilerHost.getSourceFile;
 
   compilerHost.getSourceFile = (
