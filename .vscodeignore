@@ -1,6 +1,7 @@
 .vscode/**
 .vscode-test/**
 src/**
+example/**
 .prettierignore
 prettier.config.js
 .gitignore
