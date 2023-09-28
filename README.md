@@ -27,3 +27,9 @@ ext install donaldpipowitch.vscode-styled-components-decorator
 - Clone the project and run `$ npm install` inside.
 - Preview any changes by pressing `F5` within VS Code. This will compile the extension and launch it in an example project.
 - Run `$ npm lint` if you made changes that you'd like to include.
+
+## Publishing
+
+- Follow [this guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) for the general setup.
+- Update `CHANGELOG.md`.
+- Run `$ vsce publish {your.version.number}`.
