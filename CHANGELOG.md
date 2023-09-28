@@ -1,3 +1,7 @@
+# 0.2.3 (2023-09-28)
+
+- Add missing dependency.
+
 # 0.2.2 (2023-09-28)
 
 - Debug infos.
