@@ -1,6 +1,7 @@
 {
   "name": "vscode-styled-components-decorator",
   "displayName": "vscode-styled-components-decorator",
+  "publisher": "donaldpipowitch",
   "description": "This adds a decorator to components created by styled-components in VS Code.",
   "version": "0.1.0",
   "license": "MIT",
