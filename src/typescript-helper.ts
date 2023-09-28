@@ -173,7 +173,6 @@ function resolveModuleSpecifierToFilePath(
       // Don't try to read .d.ts files
       return undefined;
     }
-    console.log('resolvedFileName', resolvedFileName);
     return resolvedFileName;
   }
   return undefined;

@@ -18,6 +18,20 @@ const decorationType = vscode.window.createTextEditorDecorationType({
 });
 
 export function activate(context: vscode.ExtensionContext) {
+  console.log('vscode-styled-components-decorator is now active!');
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'vscode-styled-components-decorator.sayHello',
+      (name) => {
+        console.log(`Hello vscode-styled-components-decorator!!!`);
+        vscode.window.showInformationMessage(
+          'vscode-styled-components-decorator is installed.',
+        );
+      },
+    ),
+  );
+
   // whenever relevant text updates happened, we'll get all components created by styled-components
   // and decorate the first character of each component
   onTextUpdates(context, async (activeEditor, document) => {

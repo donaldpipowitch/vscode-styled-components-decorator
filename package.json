@@ -20,7 +20,12 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": []
+    "commands": [
+      {
+        "command": "vscode-styled-components-decorator.sayHello",
+        "title": "vscode-styled-components-decorator: Debug Hello"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
