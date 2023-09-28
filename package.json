@@ -4,6 +4,10 @@
   "publisher": "donaldpipowitch",
   "description": "This adds a decorator to components created by styled-components in VS Code.",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donaldpipowitch/vscode-styled-components-decorator"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.82.0"
