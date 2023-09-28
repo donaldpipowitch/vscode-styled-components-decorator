@@ -1,3 +1,7 @@
+# 0.2.1 (2023-09-28)
+
+- Fix for configs.
+
 # 0.2.0 (2023-09-28)
 
 - Support absolute imports.
